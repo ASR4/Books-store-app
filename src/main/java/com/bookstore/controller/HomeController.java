@@ -111,7 +111,7 @@ public class HomeController {
 		mailSender.send(email);
 		
 		model.addAttribute("emailSent", "true");
-		model.addAttribute("orderList", user.getOrderList());
+//		model.addAttribute("orderList", user.getOrderList());
 		
 		return "myAccount";
 	}
