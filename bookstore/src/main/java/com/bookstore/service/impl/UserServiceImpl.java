@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bookstore.domain.User;
+import com.bookstore.domain.UserBilling;
+import com.bookstore.domain.UserPayment;
+import com.bookstore.domain.UserShipping;
 import com.bookstore.domain.security.PasswordResetToken;
 import com.bookstore.domain.security.UserRole;
 import com.bookstore.repository.RoleRepository;
@@ -87,6 +90,22 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void setUserDefaultShipping(Long userShippingId, User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUserBilling(UserBilling userBilling, UserPayment userPayment, User user) {
+		userPayment.setUser(user);
+		userPayment.setUserBilling(userBilling);
+		userPayment.setDefaultPayment(true);
+		userBilling.setUserPayment(userPayment);
+		user.getUserPaymentList().add(userPayment);
+		save(user);
+	}
+
+	@Override
+	public void updateUserShipping(UserShipping userShipping, User user) {
 		// TODO Auto-generated method stub
 		
 	}
