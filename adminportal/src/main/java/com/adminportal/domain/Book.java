@@ -42,9 +42,9 @@ public class Book {
 	private MultipartFile bookImage;
 	
 	
-//	@OneToMany(mappedBy = "book")
-//	@JsonIgnore
-//	private List<BookToCartItem> bookToCartItemList;
+	@OneToMany(mappedBy = "book")
+	@JsonIgnore
+	private List<BookToCartItem> bookToCartItemList;
 
 	public Long getId() {
 		return id;
@@ -182,13 +182,13 @@ public class Book {
 		this.bookImage = bookImage;
 	}
 
-//	public List<BookToCartItem> getBookToCartItemList() {
-//		return bookToCartItemList;
-//	}
-//
-//	public void setBookToCartItemList(List<BookToCartItem> bookToCartItemList) {
-//		this.bookToCartItemList = bookToCartItemList;
-//	}
+	public List<BookToCartItem> getBookToCartItemList() {
+		return bookToCartItemList;
+	}
+
+	public void setBookToCartItemList(List<BookToCartItem> bookToCartItemList) {
+		this.bookToCartItemList = bookToCartItemList;
+	}
 	
 	
 }

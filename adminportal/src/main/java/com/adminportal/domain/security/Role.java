@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Role {
-	
+
 	@Id
 	private int roleId;
 	private String name;
@@ -42,5 +42,6 @@ public class Role {
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
+	
 	
 }
