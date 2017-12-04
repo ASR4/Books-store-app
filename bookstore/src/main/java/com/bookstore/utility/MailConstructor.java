@@ -40,24 +40,24 @@ public class MailConstructor {
 		
 	}
 	
-//	public MimeMessagePreparator constructOrderConfirmationEmail (User user, Order order, Locale locale) {
-//		Context context = new Context();
-//		context.setVariable("order", order);
-//		context.setVariable("user", user);
-//		context.setVariable("cartItemList", order.getCartItemList());
-//		String text = templateEngine.process("orderConfirmationEmailTemplate", context);
-//		
-//		MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
-//			@Override
-//			public void prepare(MimeMessage mimeMessage) throws Exception {
-//				MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
-//				email.setTo(user.getEmail());
-//				email.setSubject("Order Confirmation - "+order.getId());
-//				email.setText(text, true);
-//				email.setFrom(new InternetAddress("ray.deng83@gmail.com"));
-//			}
-//		};
-//		
-//		return messagePreparator;
-//	}
+	public MimeMessagePreparator constructOrderConfirmationEmail (User user, Order order, Locale locale) {
+		Context context = new Context();
+		context.setVariable("order", order);
+		context.setVariable("user", user);
+		context.setVariable("cartItemList", order.getCartItemList());
+		String text = templateEngine.process("orderConfirmationEmailTemplate", context);
+		
+		MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+				email.setTo(user.getEmail());
+				email.setSubject("Order Confirmation - "+order.getId());
+				email.setText(text, true);
+				email.setFrom(new InternetAddress("ray.deng83@gmail.com"));
+			}
+		};
+		
+		return messagePreparator;
+	}
 }
