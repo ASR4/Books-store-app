@@ -1,4 +1,4 @@
-package com.bookstore.data;
+package com.cnb.domain;
 
 import java.util.ArrayList;
 import java.util.List;

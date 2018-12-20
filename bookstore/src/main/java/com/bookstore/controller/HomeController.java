@@ -1,5 +1,6 @@
 package com.bookstore.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,6 +48,13 @@ import com.bookstore.service.impl.UserSecurityService;
 import com.bookstore.utility.MailConstructor;
 import com.bookstore.utility.SecurityUtility;
 import com.bookstore.utility.USConstants;
+import com.cnb.client.DataClient;
+import com.cnb.domain.CnbUser;
+import com.cnb.domain.ItemSku;
+import com.cnb.service.ItemSkuService;
+import com.cnb.service.TaskData;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Controller
 public class HomeController {
@@ -75,8 +83,15 @@ public class HomeController {
 	@Autowired
 	private CartItemService cartItemService;
 	
+	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private TaskData taskData;
+	
+	@Autowired
+	private ItemSkuService itemSkuService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -113,6 +128,52 @@ public class HomeController {
 		
 		return "bookshelf";
 	}
+	
+
+	@RequestMapping("/catalog")
+	public String catalog(Model model, Principal principal) {
+		if(principal != null) {
+			String username = principal.getName();
+			CnbUser cnbUser = taskData.getUser();
+			model.addAttribute("user", cnbUser);
+		}
+		List<ItemSku> skuList = itemSkuService.findAll();
+		model.addAttribute("skuList", skuList);
+		model.addAttribute("activeAll",true);
+		
+		
+		return "catalog"; // WHAT DO I HAVE TO RETURN FOR CATALOG??
+	}
+	
+	@Autowired
+	private DataClient dataClient;
+	
+	@RequestMapping("/cnb")
+	public String cnb(Model model, Principal principal,String jsonData) {
+		String gsonResponse = "{  \r\n   \"itemSkuList\":[  \r\n      {  \r\n         \"masterSKU\":\"Ford\",\r\n         \"product\":\"car\"\r\n      },\r\n      {  \r\n         \"masterSKU\":\"Mustang\",\r\n         \"product\":\"bike\"\r\n      }\r\n   ],\r\n   \"userDetails\":{  \r\n      \"userName\":\"Maitri\",\r\n      \"userAddress\":\"payne\"\r\n   }\r\n}";
+		try {
+			dataClient.readCnbJson(gsonResponse);
+			dataClient.fillInitialRequest();
+			dataClient.fillCnbUser();
+			dataClient.fillTaskData();
+		}
+		
+		catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "index";
+	}
+	
+	
+	
 	
 	@RequestMapping("/bookDetail")
 	public String bookDetail(

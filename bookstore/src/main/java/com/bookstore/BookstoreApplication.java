@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.bookstore.domain.User;
 import com.bookstore.domain.security.Role;
@@ -14,6 +15,7 @@ import com.bookstore.domain.security.UserRole;
 import com.bookstore.service.UserService;
 import com.bookstore.utility.SecurityUtility;
 
+@ComponentScan({"com.cnb", "com.bookstore"})
 @SpringBootApplication
 public class BookstoreApplication implements CommandLineRunner{
 

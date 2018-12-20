@@ -1,8 +1,8 @@
-package com.bookstore.data;
+package com.cnb.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
+// this class is like the book
 @JsonInclude(Include.NON_NULL)
 public class ItemSku {
 	private String masterSKU;	
@@ -10,14 +10,14 @@ public class ItemSku {
 	private String type	;
 	private String brand;	
 	private String model;	
-	private String 	description;
+	private String description;
 	private String inventory;
 	private String price_CAD;	
 	private String price_USD;	
-	private String 	length;	
-	private String 	width;	
-	private String 	height;	
-	private String 	weight;
+	private String length;	
+	private String width;	
+	private String height;	
+	private String weight;
 	public String getMasterSKU() {
 		return masterSKU;
 	}

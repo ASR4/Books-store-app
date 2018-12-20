@@ -1,11 +1,7 @@
-package com.bookstore.data;
+package com.cnb.domain;
 
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-@Component
-@Scope("request")
+//@Component
+//@Scope("request")
 public class InitialRequest {
 	
 	CNBData cnbData ;

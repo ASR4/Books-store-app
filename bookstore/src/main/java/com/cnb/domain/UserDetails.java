@@ -1,4 +1,4 @@
-package com.bookstore.data;
+package com.cnb.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
