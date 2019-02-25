@@ -129,14 +129,11 @@ public class HomeController {
 		return "bookshelf";
 	}
 	
-
+	//For CNB
 	@RequestMapping("/catalog")
 	public String catalog(Model model, Principal principal) {
-		if(principal != null) {
-			String username = principal.getName();
-			CnbUser cnbUser = taskData.getUser();
-			model.addAttribute("user", cnbUser);
-		}
+		CnbUser cnbUser = taskData.getUser();
+		model.addAttribute("user", cnbUser);
 		List<ItemSku> skuList = itemSkuService.findAll();
 		model.addAttribute("skuList", skuList);
 		model.addAttribute("activeAll",true);
@@ -148,6 +145,7 @@ public class HomeController {
 	@Autowired
 	private DataClient dataClient;
 	
+	//For CNB
 	@RequestMapping("/cnb")
 	public String cnb(Model model, Principal principal,String jsonData) {
 		String gsonResponse = "{  \r\n   \"itemSkuList\":[  \r\n      {  \r\n         \"masterSKU\":\"Ford\",\r\n         \"product\":\"car\"\r\n      },\r\n      {  \r\n         \"masterSKU\":\"Mustang\",\r\n         \"product\":\"bike\"\r\n      }\r\n   ],\r\n   \"userDetails\":{  \r\n      \"userName\":\"Maitri\",\r\n      \"userAddress\":\"payne\"\r\n   }\r\n}";
@@ -179,15 +177,36 @@ public class HomeController {
 	public String bookDetail(
 			@PathParam("id") Long id, Model model, Principal principal
 			) {
+		CnbUser cnbUser = taskData.getUser();
+		model.addAttribute("user", cnbUser);
+		
+		Book book = bookService.findOne(id);
+		model.addAttribute("book", book);
+		
+		List<Integer> qtyList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+		model.addAttribute("qtyList", qtyList);
+		model.addAttribute("qty", 1);
+		
+		return "bookDetail";
+	}
+	
+	//For CNB
+	@RequestMapping("/itemSkuDetail")
+	public String itemSkuDetail(
+			@PathParam("id") String masterSKU, Model model, Principal principal
+			) {
 		if(principal != null) {
 			String username = principal.getName();
 			User user = userService.findByUsername(username);
 			model.addAttribute("user", user);
 		}
 		
-		Book book = bookService.findOne(id);
+		itemSkuService.setIdCatalogMap();
+		ItemSku itemSku = itemSkuService.findOne(masterSKU);
+		// have to return one itemSku
+
 		
-		model.addAttribute("book", book);
+		model.addAttribute("itemSku", itemSku);
 		
 		List<Integer> qtyList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
 		

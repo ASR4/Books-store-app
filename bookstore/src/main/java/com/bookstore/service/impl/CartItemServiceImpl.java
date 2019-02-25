@@ -15,6 +15,7 @@ import com.bookstore.domain.User;
 import com.bookstore.repository.BookToCartItemRepository;
 import com.bookstore.repository.CartItemRepository;
 import com.bookstore.service.CartItemService;
+import com.cnb.domain.InitialRequest;
 
 @Service
 public class CartItemServiceImpl implements CartItemService{
@@ -25,6 +26,8 @@ public class CartItemServiceImpl implements CartItemService{
 	@Autowired
 	private BookToCartItemRepository bookToCartItemRepository;
 	
+	
+	//TODO remove
 	public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
 		return cartItemRepository.findByShoppingCart(shoppingCart);
 	}

@@ -34,7 +34,7 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private ShoppingCartService shoppingCartService;
-	
+
 	@RequestMapping("/cart")
 	public String shoppingCart(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());

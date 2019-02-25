@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 // this class is like the book
 @JsonInclude(Include.NON_NULL)
 public class ItemSku {
-	private String masterSKU;	
+	public String masterSKU;	
 	private String product;
 	private String type	;
 	private String brand;	

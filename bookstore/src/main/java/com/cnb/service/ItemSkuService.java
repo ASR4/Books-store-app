@@ -7,6 +7,8 @@ import com.cnb.domain.ItemSku;
 public interface ItemSkuService {
 
 	List<ItemSku> findAll ();
+	ItemSku findOne (String masterSKU);
+	void setIdCatalogMap();
 	
 	//ItemSku findOne(Long id); // there is no id for the item sku
 //	List<ItemSku> findByCategory(String category); // sku doesnot have category
