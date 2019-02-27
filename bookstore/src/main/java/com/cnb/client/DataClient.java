@@ -33,27 +33,6 @@ public class DataClient {
 	 @Autowired
 	 private TaskData taskData;
 	 
-	/*JSON response 
-	 * {
-				  "itemSkuList":
-				  [
-				    { "masterSKU":"Ford", 
-				       "product":"car" 
-				    },
-				    {
-				      "masterSKU":"Mustang", 
-				      "product":"bike"
-				    }
-				    
-				  ],
-				    "userDetails":
-				    {
-				      "name": "Maitri", 
-				      "address": "payne"
-				    }
-				}
-	*/
-	 
 	 public void getJson() {
 		//TODO make client call	
 	 }

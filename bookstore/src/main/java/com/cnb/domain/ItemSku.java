@@ -2,7 +2,7 @@ package com.cnb.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-// this class is like the book
+
 @JsonInclude(Include.NON_NULL)
 public class ItemSku {
 	public String masterSKU;	
@@ -18,6 +18,8 @@ public class ItemSku {
 	private String width;	
 	private String height;	
 	private String weight;
+	private String imageUrl;
+	
 	public String getMasterSKU() {
 		return masterSKU;
 	}
@@ -95,6 +97,12 @@ public class ItemSku {
 	}
 	public void setWeight(String weight) {
 		this.weight = weight;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 }

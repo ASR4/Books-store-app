@@ -50,21 +50,34 @@
 										</div>
 										<div class="col-xs-9" >
 											<a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}"><h4
-													th:text="${itemSku.model}"></h4></a> <!--span
-												th:text="${book.publicationDate}"></span-->
-											<p th:text="${itemSku.brand}"></p>
+													th:text="${itemSku.product}"></h4></a> 
+												
+											<!-- model -->			
+											<span style="font-size: large; color: #db3208;">Model : </span> 
+											<span th:text="${itemSku.model}"></span><br/>
+												
+											<!-- brand -->		
+											<span style="font-size: large; color: #db3208;">Brand : </span> 
+											<span th:text="${itemSku.brand}"></span><br/>
+											
+											<!-- <a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}"><span
+												th:text="${#strings.capitalize(itemSku.product)}"></span></a><br/> -->
+												
+											<!-- inventory -->	
+											<span style="font-size: large; color: #db3208;"> Inventory : </span>
+											<span th:text="${itemSku.inventory}"></span><br/>
+											
+											<!-- price -->	
 											<a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}"><span
-												th:text="${#strings.capitalize(itemSku.product)}"></span></a> <span
-												th:text="${itemSku.inventory}"><span> pages</span></span><br />
+												style="font-size: large; color: #db3208;">Price : </span><span
+													th:text="${itemSku.price_CAD}"></span></a><br/>
 
-											<a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}"><span
-												style="font-size: x-large; color: #db3208;">$40<!--span
-													th:text="${#numbers.formatDecimal(book.ourPrice, 0 , 'COMMA', 2, 'POINT')}"></span--></span></a>
-
-											<span style="text-decoration: line-through;">$40<!--span
-												th:text="${#numbers.formatDecimal(book.listPrice, 0 , 'COMMA', 2, 'POINT')}"></span--></span>
-
-											<!--p th:utext="${#strings.abbreviate(book.description, 1000)}"></p-->
+											<!--span style="text-decoration: line-through;"><span
+												th:text="${itemSku.price_CAD}"></span></span-->
+											
+											<!-- description -->	
+											<span style="font-size: large; color: #db3208;">Description : </span> 
+											<span th:utext="${#strings.abbreviate(itemSku.description, 1000)}"></span>
 										</div>
 									</div>
 								</div>
