@@ -195,11 +195,13 @@ public class HomeController {
 	public String itemSkuDetail(
 			@PathParam("id") String masterSKU, Model model, Principal principal
 			) {
-		if(principal != null) {
-			String username = principal.getName();
-			User user = userService.findByUsername(username);
-			model.addAttribute("user", user);
-		}
+//		if(principal != null) {
+//			String username = principal.getName();
+//			User user = userService.findByUsername(username);
+//			model.addAttribute("user", user);
+//		}
+		CnbUser cnbUser = taskData.getUser();
+		model.addAttribute("user", cnbUser);
 		
 		itemSkuService.setIdCatalogMap();
 		ItemSku itemSku = itemSkuService.findOne(masterSKU);
@@ -213,7 +215,7 @@ public class HomeController {
 		model.addAttribute("qtyList", qtyList);
 		model.addAttribute("qty", 1);
 		
-		return "bookDetail";
+		return "itemSkuDetail";
 	}
 
 	@RequestMapping("/forgetPassword")
