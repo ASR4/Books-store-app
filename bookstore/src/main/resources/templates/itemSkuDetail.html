@@ -10,7 +10,7 @@
         <div class="col-xs-8">
             <h2 class="section-headline">
                 <h2 class="section-headline">
-                    <span th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Books'"></span>
+                    <span th:text="${user}? ${#strings.toUpperCase(user.userName)} : 'All Books'"></span>
                 </h2>
             </h2>
         </div>
@@ -25,27 +25,24 @@
 
     
     <form th:action="@{/shoppingCart/addItem}" method="post">
-    	<input hidden="hidden" th:field="*{book.id}" />
+    	<input hidden="hidden" th:field="*{itemSku.masterSKU}" />
     	<div class="row" style="margin-top: 120px;">
     		<div class="col-xs-3">
-    			<a th:href="@{/bookshelf}">Back to book list</a><br/>
+    			<a th:href="@{/catalog}">Back to catalog</a><br/>
     			<img class="img-responsive shelf-book" th:src="#{adminPath}+@{/image/book/}+${book.id}+'.png'" />
     		</div>
     		
     		<div class="col-xs-9">
     			<h3><span th:if="${addBookSuccess}" style="color: forestgreen"><i class="fa fa-check" aria-hidden="true" style="color: forestgreen"></i>Added to cart.</span></h3>
-    			<h3><span th:if="${notEnoughStock}" style="color: red">Oops, only <span th:text="${book.inStockNumber}"></span> In Stock.</span></h3>
-    			<h3 th:text="${book.title}">Book Title</h3>
+    			<h3><span th:if="${notEnoughStock}" style="color: red">Oops, only <span th:text="${itemSku.inventory}"></span> In Stock.</span></h3>
+    			<h3 th:text="${itemSku.product}">Product name</h3>
     			<div class="row">
     				<div class="col-xs-5">
-    					<h5><strong>Author: </strong><span th:text="${book.author}"></span></h5>
-    					<p><strong>Publisher: </strong><span th:text="${book.publisher}"></span></p>
-    					<p><strong>Publication Date: </strong><span th:text="${book.publicationDate}"></span></p>
-    					<p><strong>Language: </strong><span th:text="${book.language}"></span></p>
-    					<p><strong>Category: </strong><span th:text="${book.category}"></span></p>
-    					<p><strong><span th:text="${book.format}"></span>: </strong><span th:text="${book.numberOfPages}"></span> pages</p>
-    					<p><strong>ISBN: </strong><span th:text="${book.isbn}"></span></p>
-    					<p><strong>Shipping Weight: </strong><span th:text="${book.shippingWeight}"></span> ounces</p>
+    					<h5><strong>Type: </strong><span th:text="${itemSku.type}"></span></h5>
+    					<p><strong>Brand: </strong><span th:text="${itemSku.brand}"></span></p>
+    					<p><strong>Model: </strong><span th:text="${itemSku.model}"></span></p>
+    					<!-- <p><strong>Description: </strong><span th:text="${itemSku.description}"></span></p> -->
+    					<p><strong>Sku#: </strong><span th:text="${itemSku.masterSKU}"></span></p>
     				</div>
     				
     				<div class="col-xs-7">
@@ -53,9 +50,10 @@
     						<div class="panel-body">
     							<div class="row">
     								<div class="col-xs-6">
-    									<h4>Our Price: <span style="color:#db3208;">$<span th:text="${book.ourPrice}"></span></span></h4>
-    									<p>List Price: <span style="text-decoration: line-through">$<span th:text="${book.listPrice}"></span></span></p>
-    									<p>You save: $<span th:text="${#numbers.formatDecimal((book.listPrice - book.ourPrice), 0, 'COMMA', 2, 'POINT' )}"></span></p>
+    									<h4>Our Price: <span style="color:#db3208;">$<span th:text="${itemSku.price_CAD}"></span></span></h4>
+    									<!-- <p>List Price: <span style="text-decoration: line-through">$<span th:text="${book.listPrice}"></span></span></p>
+    									<p>You save: $<span th:text="${#numbers.formatDecimal((book.listPrice - book.ourPrice), 0, 'COMMA', 2, 'POINT' )}"></span></p> -->
+    									
     									<span>Qty: </span>
     									<select name="qty">
     										<option th:each="qty : ${qtyList}" th:value="${qty}" th:text="${qty}">
@@ -63,9 +61,9 @@
     									</select>
     								</div>
     								<div class="col-xs-6">
-    									<h4 th:if="*{book.inStockNumber&gt;10}" style="color: green">In Stock</h4>
-    									<h4 th:if="*{book.inStockNumber&lt;10 and book.inStockNumber&gt;0}" style="color: green">Only <span th:text="${book.inStockNumber}"> </span> In Stock</h4>
-    									<h4 th:if="*{book.inStockNumber==0}" style="color:darkred;">Unavailable</h4>
+    									<h4 th:if="*{itemSku.inventory&gt;10}" style="color: green">In Stock</h4>
+    									<h4 th:if="*{itemSku.inventory&lt;10 and itemSku.inventory&gt;0}" style="color: green">Only <span th:text="${book.inStockNumber}"> </span> In Stock</h4>
+    									<h4 th:if="*{itemSku.inventory==0}" style="color:darkred;">Unavailable</h4>
     									<button type="submit" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px;">Add to Cart</button>
     								</div>
     							</div>
@@ -75,7 +73,7 @@
     			</div>
     			
     			<hr/>
-    			<p th:utext="${book.description}"></p>
+    			<p th:utext="${itemSku.description}"></p>
     		</div>
     	</div>
     </form>

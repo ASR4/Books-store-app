@@ -177,8 +177,11 @@ public class HomeController {
 	public String bookDetail(
 			@PathParam("id") Long id, Model model, Principal principal
 			) {
-		CnbUser cnbUser = taskData.getUser();
-		model.addAttribute("user", cnbUser);
+		if(principal != null) {
+			String username = principal.getName();
+			User user = userService.findByUsername(username);
+			model.addAttribute("user", user);
+		}
 		
 		Book book = bookService.findOne(id);
 		model.addAttribute("book", book);
@@ -195,19 +198,13 @@ public class HomeController {
 	public String itemSkuDetail(
 			@PathParam("id") String masterSKU, Model model, Principal principal
 			) {
-//		if(principal != null) {
-//			String username = principal.getName();
-//			User user = userService.findByUsername(username);
-//			model.addAttribute("user", user);
-//		}
 		CnbUser cnbUser = taskData.getUser();
-		model.addAttribute("user", cnbUser);
+		model.addAttribute("user", cnbUser.getUserDetails());
 		
 		itemSkuService.setIdCatalogMap();
 		ItemSku itemSku = itemSkuService.findOne(masterSKU);
 		// have to return one itemSku
-
-		
+		System.out.println("[DEBUG] brand : " + itemSku.getBrand());
 		model.addAttribute("itemSku", itemSku);
 		
 		List<Integer> qtyList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
