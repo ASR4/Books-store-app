@@ -23,11 +23,11 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 		
 		for(ItemSku item : catalogList) {
 			if(item!=null) {
-				System.out.println("[DEBUG] : MasterSKU : " + item.getMasterSKU());
+				System.out.println("[DEBUG] ItemSkuServiceImpl : MasterSKU : " + item.getMasterSKU());
 				idCatalogMap.put(item.getMasterSKU(), item);
 			}
 		}
-		System.out.println("[DEBUG] Map : " + idCatalogMap);
+		System.out.println("[DEBUG] ItemSkuServiceImpl: Map : " + idCatalogMap);
 	}
 	
 	@Override

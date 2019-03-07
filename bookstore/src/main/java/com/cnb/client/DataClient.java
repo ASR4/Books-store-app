@@ -41,8 +41,8 @@ public class DataClient {
 		if(gsonResponse!=null && gsonResponse.length() !=0){
 			ObjectMapper mapper = new ObjectMapper();
 			this.cnbData = mapper.readValue(gsonResponse, CNBData.class);
-			System.out.println("[DEFAULT] : " + cnbData.getItemSkuList().get(0).getMasterSKU());
-			System.out.println("[DEFAULT] : " + cnbData.getUserDetails().getUserName());
+			System.out.println("[DEFAULT] DataClient: " + cnbData.getItemSkuList().get(0).getMasterSKU());
+			System.out.println("[DEFAULT] DataClient: " + cnbData.getUserDetails().getUserName());
 			
 		}
 	 }

@@ -10,34 +10,34 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bookstore.domain.Book;
-import com.bookstore.domain.CartItem;
 import com.bookstore.domain.ShoppingCart;
-import com.bookstore.domain.User;
-import com.bookstore.service.BookService;
-import com.bookstore.service.CartItemService;
 import com.bookstore.service.ShoppingCartService;
-import com.bookstore.service.UserService;
+import com.cnb.domain.CartItem;
+import com.cnb.domain.CnbUser;
+import com.cnb.domain.ItemSku;
+import com.cnb.service.CartItemService;
+import com.cnb.service.ItemSkuService;
+import com.cnb.service.TaskData;
 
 @Controller
 @RequestMapping("/shoppingCart")
 public class ShoppingCartController {
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
 	private CartItemService cartItemService;
 	
 	@Autowired
-	private BookService bookService;
+	private ShoppingCartService shoppingCartService;
 	
 	@Autowired
-	private ShoppingCartService shoppingCartService;
+	private TaskData taskData;
+	
+	@Autowired
+	private ItemSkuService itemSkuService;
 
 	@RequestMapping("/cart")
 	public String shoppingCart(Model model, Principal principal) {
-		User user = userService.findByUsername(principal.getName());
+		CnbUser user = taskData.getUser();
 		ShoppingCart shoppingCart = user.getShoppingCart();
 		
 		List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
@@ -50,25 +50,46 @@ public class ShoppingCartController {
 		return "shoppingCart";
 	}
 
+//	@RequestMapping("/addItem")
+//	public String addItem(
+//			@ModelAttribute("book") Book book,
+//			@ModelAttribute("qty") String qty,
+//			Model model, Principal principal
+//			) {
+//		User user = userService.findByUsername(principal.getName());
+//		book = bookService.findOne(book.getId());
+//		
+//		if (Integer.parseInt(qty) > book.getInStockNumber()) {
+//			model.addAttribute("notEnoughStock", true);
+//			return "forward:/bookDetail?id="+book.getId();
+//		}
+//		
+//		CartItem cartItem = cartItemService.addBookToCartItem(book, user, Integer.parseInt(qty));
+//		model.addAttribute("addBookSuccess", true);
+//		
+//		return "forward:/bookDetail?id="+book.getId();
+//	}
+	
+	//CNB
 	@RequestMapping("/addItem")
 	public String addItem(
-			@ModelAttribute("book") Book book,
+			@ModelAttribute("itemSku") ItemSku itemSku,
 			@ModelAttribute("qty") String qty,
 			Model model, Principal principal
 			) {
-		User user = userService.findByUsername(principal.getName());
-		book = bookService.findOne(book.getId());
+		CnbUser user = taskData.getUser();
+		itemSku = itemSkuService.findOne(itemSku.getMasterSKU());
 		
-		if (Integer.parseInt(qty) > book.getInStockNumber()) {
+		if (Integer.parseInt(qty) > itemSku.getInventory()) {
 			model.addAttribute("notEnoughStock", true);
-			return "forward:/bookDetail?id="+book.getId();
+			return "forward:/itemSkuDetail?id=" + itemSku.getInventory();
 		}
 		
-		CartItem cartItem = cartItemService.addBookToCartItem(book, user, Integer.parseInt(qty));
-		model.addAttribute("addBookSuccess", true);
+		CartItem cartItem = cartItemService.addBookToCartItem(itemSku, user, Integer.parseInt(qty));
+		model.addAttribute("addItemSkuSuccess", true);
 		
-		return "forward:/bookDetail?id="+book.getId();
-	}
+		return "forward:/itemSkuDetail?id=" + itemSku.getInventory();
+	}	
 	
 	@RequestMapping("/updateCartItem")
 	public String updateShoppingCart(

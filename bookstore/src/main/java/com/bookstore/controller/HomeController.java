@@ -199,10 +199,7 @@ public class HomeController {
 		model.addAttribute("user", cnbUser.getUserDetails());
 		
 		itemSkuService.setIdCatalogMap();
-		System.out.println("[DEBUG] ID from param : " + id);
 		ItemSku itemSku = itemSkuService.findOne(String.valueOf(id));
-		// have to return one itemSku
-		System.out.println("[DEBUG] brand : " + itemSku.getBrand());
 		model.addAttribute("itemSku", itemSku);
 		
 		List<Integer> qtyList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
