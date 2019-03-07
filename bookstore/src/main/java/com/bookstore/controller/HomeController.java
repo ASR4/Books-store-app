@@ -136,10 +136,9 @@ public class HomeController {
 		model.addAttribute("user", cnbUser);
 		List<ItemSku> skuList = itemSkuService.findAll();
 		model.addAttribute("skuList", skuList);
-		model.addAttribute("activeAll",true);
+		model.addAttribute("activeAll",true);	
 		
-		
-		return "catalog"; // WHAT DO I HAVE TO RETURN FOR CATALOG??
+		return "catalog";
 	}
 	
 	@Autowired
@@ -148,7 +147,7 @@ public class HomeController {
 	//For CNB
 	@RequestMapping("/cnb")
 	public String cnb(Model model, Principal principal,String jsonData) {
-		String gsonResponse = "{  \r\n   \"itemSkuList\":[  \r\n      {  \r\n         \"masterSKU\":\"54324\",\r\n         \"product\":\"Hp Pavilion\",\r\n         \"type\":\"Laptop\",\r\n         \"brand\":\"HP\",\r\n         \"model\":\"Pavilion 980\",\r\n         \"description\":\"Highly durable and long lasting laptop.\",\r\n         \"inventory\":\"300\",\r\n         \"price_CAD\":\"$500\",\r\n         \"price_USD\":\"$430\",\r\n         \"length\":\"12 inches\",\r\n         \"width\":\"8 inches\",\r\n         \"height\":\"1 inch\",\r\n         \"weight\":\"500 gms\"\r\n      },\r\n      {  \r\n         \"masterSKU\":\"54000\",\r\n         \"product\":\"Alienware\",\r\n         \"type\":\"Laptop\",\r\n         \"brand\":\"Dell\",\r\n         \"model\":\"Alienware Area51\",\r\n         \"description\":\"Best gaming laptop.\",\r\n         \"inventory\":\"300\",\r\n         \"price_CAD\":\"$1500\",\r\n         \"price_USD\":\"$1300\",\r\n         \"length\":\"14 inches\",\r\n         \"width\":\"10 inches\",\r\n         \"height\":\"2 inch\",\r\n         \"weight\":\"1500 gms\"\r\n      }\r\n   ],\r\n   \"userDetails\":{  \r\n      \"userName\":\"CNB\",\r\n      \"userAddress\":\"Canada\"\r\n   }\r\n}\r\n";
+		String gsonResponse = "{  \r\n   \"itemSkuList\":[  \r\n      {  \r\n         \"masterSKU\":\"54324\",\r\n         \"product\":\"Hp Pavilion\",\r\n         \"type\":\"Laptop\",\r\n         \"brand\":\"HP\",\r\n         \"model\":\"Pavilion 980\",\r\n         \"description\":\"Highly durable and long lasting laptop.\",\r\n         \"inventory\":300,\r\n         \"price_CAD\":\"500\",\r\n         \"price_USD\":\"430\",\r\n         \"length\":\"12 inches\",\r\n         \"width\":\"8 inches\",\r\n         \"height\":\"1 inch\",\r\n         \"weight\":\"500 gms\"\r\n      },\r\n      {  \r\n         \"masterSKU\":\"54000\",\r\n         \"product\":\"Alienware\",\r\n         \"type\":\"Laptop\",\r\n         \"brand\":\"Dell\",\r\n         \"model\":\"Alienware Area51\",\r\n         \"description\":\"Best gaming laptop.\",\r\n         \"inventory\":300,\r\n         \"price_CAD\":\"1500\",\r\n         \"price_USD\":\"1300\",\r\n         \"length\":\"14 inches\",\r\n         \"width\":\"10 inches\",\r\n         \"height\":\"2 inch\",\r\n         \"weight\":\"1500 gms\"\r\n      }\r\n   ],\r\n   \"userDetails\":{  \r\n      \"userName\":\"CNB\",\r\n      \"userAddress\":\"Canada\"\r\n   }\r\n}\r\n";
 		try {
 			dataClient.readCnbJson(gsonResponse);
 			dataClient.fillInitialRequest();
@@ -169,8 +168,6 @@ public class HomeController {
 		
 		return "index";
 	}
-	
-	
 	
 	
 	@RequestMapping("/bookDetail")
@@ -196,13 +193,14 @@ public class HomeController {
 	//For CNB
 	@RequestMapping("/itemSkuDetail")
 	public String itemSkuDetail(
-			@PathParam("id") String masterSKU, Model model, Principal principal
+			@PathParam("id") Long id, Model model, Principal principal
 			) {
 		CnbUser cnbUser = taskData.getUser();
 		model.addAttribute("user", cnbUser.getUserDetails());
 		
 		itemSkuService.setIdCatalogMap();
-		ItemSku itemSku = itemSkuService.findOne(masterSKU);
+		System.out.println("[DEBUG] ID from param : " + id);
+		ItemSku itemSku = itemSkuService.findOne(String.valueOf(id));
 		// have to return one itemSku
 		System.out.println("[DEBUG] brand : " + itemSku.getBrand());
 		model.addAttribute("itemSku", itemSku);

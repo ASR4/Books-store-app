@@ -29,7 +29,7 @@
     	<div class="row" style="margin-top: 120px;">
     		<div class="col-xs-3">
     			<a th:href="@{/catalog}">Back to catalog</a><br/>
-    			<img class="img-responsive shelf-book" th:src="#{adminPath}+@{/image/book/}+${book.id}+'.png'" />
+    			<img class="img-responsive shelf-book" th:src="#{adminPath}+@{/image/book/}+${itemSku.imageUrl}+'.png'" />
     		</div>
     		
     		<div class="col-xs-9">
@@ -62,7 +62,7 @@
     								</div>
     								<div class="col-xs-6">
     									<h4 th:if="*{itemSku.inventory&gt;10}" style="color: green">In Stock</h4>
-    									<h4 th:if="*{itemSku.inventory&lt;10 and itemSku.inventory&gt;0}" style="color: green">Only <span th:text="${book.inStockNumber}"> </span> In Stock</h4>
+    									<h4 th:if="*{itemSku.inventory&lt;10 and itemSku.inventory&gt;0}" style="color: green">Only <span th:text="${itemSku.inventory}"> </span> In Stock</h4>
     									<h4 th:if="*{itemSku.inventory==0}" style="color:darkred;">Unavailable</h4>
     									<button type="submit" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px;">Add to Cart</button>
     								</div>

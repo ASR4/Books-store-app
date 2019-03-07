@@ -11,7 +11,7 @@ public class ItemSku {
 	private String brand;	
 	private String model;	
 	private String description;
-	private String inventory;
+	private int inventory;
 	private String price_CAD;	
 	private String price_USD;	
 	private String length;	
@@ -56,10 +56,10 @@ public class ItemSku {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getInventory() {
+	public int getInventory() {
 		return inventory;
 	}
-	public void setInventory(String inventory) {
+	public void setInventory(int inventory) {
 		this.inventory = inventory;
 	}
 	public String getPrice_CAD() {
