@@ -13,7 +13,7 @@ public interface CartItemService {
 	
 	CartItem updateCartItem(CartItem cartItem);
 	
-	CartItem addBookToCartItem(ItemSku itemSku, CnbUser user, int qty);
+	CartItem addItemSkuToCartItem(ItemSku itemSku, CnbUser user, int qty);
 	
 	CartItem findById(Long id);
 	

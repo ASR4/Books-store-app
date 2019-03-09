@@ -85,7 +85,7 @@ public class ShoppingCartController {
 			return "forward:/itemSkuDetail?id=" + itemSku.getInventory();
 		}
 		
-		CartItem cartItem = cartItemService.addBookToCartItem(itemSku, user, Integer.parseInt(qty));
+		CartItem cartItem = cartItemService.addItemSkuToCartItem(itemSku, user, Integer.parseInt(qty));
 		model.addAttribute("addItemSkuSuccess", true);
 		
 		return "forward:/itemSkuDetail?id=" + itemSku.getInventory();

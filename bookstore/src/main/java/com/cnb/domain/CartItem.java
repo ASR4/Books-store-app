@@ -3,9 +3,6 @@ package com.cnb.domain;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.bookstore.domain.Order;
-import com.bookstore.domain.ShoppingCart;
-
 public class CartItem {
 
 	private Long id;
