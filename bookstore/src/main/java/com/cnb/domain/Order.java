@@ -6,9 +6,6 @@ import java.util.List;
 
 import javax.persistence.ManyToOne;
 
-import com.bookstore.domain.CartItem;
-import com.bookstore.domain.User;
-
 public class Order {
 	
 	private Long id;
@@ -23,7 +20,7 @@ public class Order {
 //	private Payment payment;
 	
 	@ManyToOne
-	private User user;
+	private CnbUser user;
 
 	public Long getId() {
 		return id;
@@ -105,11 +102,11 @@ public class Order {
 //		this.billingAddress = billingAddress;
 //	}
 
-	public User getUser() {
+	public CnbUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(CnbUser user) {
 		this.user = user;
 	}
 	

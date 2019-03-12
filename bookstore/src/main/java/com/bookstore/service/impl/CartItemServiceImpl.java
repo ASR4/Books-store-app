@@ -15,7 +15,6 @@ import com.bookstore.domain.User;
 import com.bookstore.repository.BookToCartItemRepository;
 import com.bookstore.repository.CartItemRepository;
 import com.bookstore.service.CartItemService;
-import com.cnb.domain.InitialRequest;
 
 @Service
 public class CartItemServiceImpl implements CartItemService{

@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bookstore.domain.ShoppingCart;
-import com.bookstore.service.ShoppingCartService;
 import com.cnb.domain.CartItem;
 import com.cnb.domain.CnbUser;
 import com.cnb.domain.ItemSku;
+import com.cnb.domain.ShoppingCart;
 import com.cnb.service.CartItemService;
 import com.cnb.service.ItemSkuService;
+import com.cnb.service.ShoppingCartService;
 import com.cnb.service.TaskData;
 
 @Controller
@@ -47,7 +47,7 @@ public class ShoppingCartController {
 		model.addAttribute("cartItemList", cartItemList);
 		model.addAttribute("shoppingCart", shoppingCart);
 		
-		return "shoppingCart";
+		return "cnbShoppingCart";
 	}
 
 //	@RequestMapping("/addItem")
@@ -88,7 +88,7 @@ public class ShoppingCartController {
 		CartItem cartItem = cartItemService.addItemSkuToCartItem(itemSku, user, Integer.parseInt(qty));
 		model.addAttribute("addItemSkuSuccess", true);
 		
-		return "forward:/itemSkuDetail?id=" + itemSku.getInventory();
+		return "forward:/itemSkuDetail?id=" + itemSku.getMasterSKU();
 	}	
 	
 	@RequestMapping("/updateCartItem")
@@ -107,6 +107,6 @@ public class ShoppingCartController {
 	public String removeItem(@RequestParam("id") Long id) {
 		cartItemService.removeCartItem(cartItemService.findById(id));
 		
-		return "forward:/shoppingCart/cart";
+		return "forward:/cnbShoppingCart/cart";
 	}
 }
