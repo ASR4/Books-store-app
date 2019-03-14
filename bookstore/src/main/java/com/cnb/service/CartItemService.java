@@ -9,7 +9,7 @@ import com.cnb.domain.Order;
 import com.cnb.domain.ShoppingCart;
 
 public interface CartItemService {
-	List<CartItem> findByShoppingCart(ShoppingCart shoppingCart);
+	List<CartItem> findListOfCartFromShoppingCart();
 	
 	CartItem updateCartItem(CartItem cartItem);
 	
@@ -23,7 +23,7 @@ public interface CartItemService {
 	
 //	List<CartItem> findByOrder(Order order);
 	
-	List<ShoppingCart> getListOfShoppingCart();
+	ShoppingCart getShoppingCart();
 
-	void setListOfShoppingCart(List<ShoppingCart> listOfShoppingCart);
+	void setShoppingCart(ShoppingCart shoppingCart);
 }

@@ -19,24 +19,25 @@ public class CartItemServiceCnbImpl implements CartItemService {
 	
 //	Map<CnbUser, ShoppingCart> userShoppingCartMap = new HashMap<CnbUser, ShoppingCart>();
 	List<CartItem> listOfCartItems = new ArrayList<CartItem>();
-	List<ShoppingCart> listOfShoppingCart = new ArrayList<ShoppingCart>();
+//	List<ShoppingCart> listOfShoppingCart = new ArrayList<ShoppingCart>();
 	List<ItemSkuToCartItem> listOfItemSkuToCartItem = new ArrayList<ItemSkuToCartItem>();
 	List<Order> listOfOrders = new ArrayList<Order>();
+	private ShoppingCart shoppingCart = new ShoppingCart();
 	
-	public List<ShoppingCart> getListOfShoppingCart() {
-		return listOfShoppingCart;
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
 	}
 
-	public void setListOfShoppingCart(List<ShoppingCart> listOfShoppingCart) {
-		this.listOfShoppingCart = listOfShoppingCart;
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
 	}
 	
 	@Override
-	public List<CartItem> findByShoppingCart(ShoppingCart shoppingCart) {
-		if(listOfShoppingCart.contains(shoppingCart)) {
-			return shoppingCart.getCartItemList();
+	public List<CartItem> findListOfCartFromShoppingCart() {
+		if(this.shoppingCart.getCartItemList() == null) {
+			return null;
 		}
-		return null;
+		return this.shoppingCart.getCartItemList();
 	}
 
 	@Override
@@ -50,13 +51,14 @@ public class CartItemServiceCnbImpl implements CartItemService {
 		cartItem.setSubtotal(bigDecimal);
 		//cartItemRepository.save(cartItem);
 		listOfCartItems.add(cartItem);
+		shoppingCart.setCartItemList(listOfCartItems);
 		
 		return cartItem;
 	}
 
 	@Override
 	public CartItem addItemSkuToCartItem(ItemSku itemSku, CnbUser user, int qty) {
-		List<CartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
+		List<CartItem> cartItemList = findListOfCartFromShoppingCart();
 		
 		if(cartItemList != null) {
 			for (CartItem cartItem : cartItemList) {
@@ -65,8 +67,19 @@ public class CartItemServiceCnbImpl implements CartItemService {
 					cartItem.setId(1234L);
 					cartItem.setQty(cartItem.getQty()+qty);
 					cartItem.setSubtotal(new BigDecimal(itemSku.getPrice_CAD()).multiply(new BigDecimal(qty)));
-					listOfCartItems.add(cartItem);
+//					listOfCartItems.add(cartItem);
 					//cartItemRepository.save(cartItem);
+					shoppingCart.setCartItemList(listOfCartItems);
+					
+					
+					System.out.println("[DEBUG] : In CartItemServiceCnbImpl + cartItem list NOT empty");
+					for(CartItem cartI : listOfCartItems) {
+						System.out.println("[DEBUG] : master sku : " + cartI.getItemSku().getMasterSKU());
+						System.out.println("[DEBUG] : quantity : " + cartI.getQty());
+//						System.out.println("[DEBUG] : shopping cart list : " + cartI.getShoppingCart().getCartItemList());
+//						System.out.println("[DEBUG] : shopping cart list : " + cartI.getShoppingCart().getId());
+					}
+					
 					return cartItem;
 				}
 			}
@@ -75,13 +88,14 @@ public class CartItemServiceCnbImpl implements CartItemService {
 		CartItem cartItem = new CartItem();
 		//Hardcoding cart id as this is not a persistent session
 		cartItem.setId(1234L);
-		cartItem.setShoppingCart(user.getShoppingCart());
+		cartItem.setShoppingCart(this.shoppingCart);
 		cartItem.setItemSku(itemSku);
 		
 		cartItem.setQty(qty);
 		cartItem.setSubtotal(new BigDecimal(itemSku.getPrice_CAD()).multiply(new BigDecimal(qty)));
 		listOfCartItems.add(cartItem);
 		//cartItem = cartItemRepository.save(cartItem);
+		shoppingCart.setCartItemList(listOfCartItems);
 		
 		ItemSkuToCartItem itemSkuToCartItem = new ItemSkuToCartItem();
 		itemSkuToCartItem.setItemSku(itemSku);
@@ -89,6 +103,16 @@ public class CartItemServiceCnbImpl implements CartItemService {
 		listOfItemSkuToCartItem.add(itemSkuToCartItem);
 		//itemSkuToCartItem.save(bookToCartItem);
 		cartItem.setItemSkuToCartItemList(listOfItemSkuToCartItem);
+		
+		
+		//TODO remove the print block
+		System.out.println("[DEBUG] : In CartItemServiceCnbImpl");
+		for(CartItem cartI : listOfCartItems) {
+			System.out.println("[DEBUG] : master sku : " + cartI.getItemSku().getMasterSKU());
+			System.out.println("[DEBUG] : quantity : " + cartI.getQty());
+//			System.out.println("[DEBUG] : shopping cart list : " + cartI.getShoppingCart().getCartItemList());
+//			System.out.println("[DEBUG] : shopping cart list : " + cartI.getShoppingCart().getId());
+		}
 		
 		return cartItem;
 	}
