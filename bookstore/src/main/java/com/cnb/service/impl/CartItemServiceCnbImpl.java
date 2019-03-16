@@ -71,7 +71,7 @@ public class CartItemServiceCnbImpl implements CartItemService {
 					//cartItemRepository.save(cartItem);
 					shoppingCart.setCartItemList(listOfCartItems);
 					
-					
+					//TODO remove the print block
 					System.out.println("[DEBUG] : In CartItemServiceCnbImpl + cartItem list NOT empty");
 					for(CartItem cartI : listOfCartItems) {
 						System.out.println("[DEBUG] : master sku : " + cartI.getItemSku().getMasterSKU());

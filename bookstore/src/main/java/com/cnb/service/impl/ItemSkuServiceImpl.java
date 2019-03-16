@@ -1,4 +1,5 @@
 package com.cnb.service.impl;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +24,11 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 		
 		for(ItemSku item : catalogList) {
 			if(item!=null) {
-				System.out.println("[DEBUG] ItemSkuServiceImpl : MasterSKU : " + item.getMasterSKU());
+//				System.out.println("[DEBUG] ItemSkuServiceImpl : MasterSKU : " + item.getMasterSKU());
 				idCatalogMap.put(item.getMasterSKU(), item);
 			}
 		}
-		System.out.println("[DEBUG] ItemSkuServiceImpl: Map : " + idCatalogMap);
+//		System.out.println("[DEBUG] ItemSkuServiceImpl: Map : " + idCatalogMap);
 	}
 	
 	@Override
