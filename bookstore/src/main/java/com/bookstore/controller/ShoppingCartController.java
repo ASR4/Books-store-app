@@ -38,11 +38,21 @@ public class ShoppingCartController {
 	@RequestMapping("/cart")
 	public String shoppingCart(Model model, Principal principal) {
 		CnbUser user = taskData.getUser();
-		ShoppingCart shoppingCart = user.getShoppingCart();
+//		ShoppingCart shoppingCart = user.getShoppingCart();
+		ShoppingCart shoppingCart = new ShoppingCart();
 		
-		List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+		List<CartItem> cartItemList = cartItemService.findListOfCartFromShoppingCart();
 		
-		shoppingCartService.updateShoppingCart(shoppingCart);
+		//TODO remove the print block
+				System.out.println("[DEBUG] : In ShoppingCartController");
+				for(CartItem cartI : cartItemList) {
+					System.out.println("[DEBUG] : master sku : " + cartI.getItemSku().getMasterSKU());
+//					System.out.println("[DEBUG] : quantity : " + cartI.getQty());
+//					System.out.println("[DEBUG] : shopping cart list : " + cartI.getShoppingCart().getCartItemList());
+//					System.out.println("[DEBUG] : shopping cart list : " + cartI.getShoppingCart().getId());
+				}
+		
+		shoppingCartService.updateShoppingCart(shoppingCart, cartItemList);
 		
 		model.addAttribute("cartItemList", cartItemList);
 		model.addAttribute("shoppingCart", shoppingCart);
@@ -98,7 +108,7 @@ public class ShoppingCartController {
 			) {
 		CartItem cartItem = cartItemService.findById(cartItemId);
 		cartItem.setQty(qty);
-		cartItemService.updateCartItem(cartItem);
+		cartItemService.updateCartItem(cartItem, cartItem.getShoppingCart());
 		
 		return "forward:/shoppingCart/cart";
 	}
@@ -107,6 +117,6 @@ public class ShoppingCartController {
 	public String removeItem(@RequestParam("id") Long id) {
 		cartItemService.removeCartItem(cartItemService.findById(id));
 		
-		return "forward:/cnbShoppingCart/cart";
+		return "forward:/shoppingCart/cart";
 	}
 }

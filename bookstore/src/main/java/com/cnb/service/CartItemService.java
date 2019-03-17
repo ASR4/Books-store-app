@@ -11,7 +11,8 @@ import com.cnb.domain.ShoppingCart;
 public interface CartItemService {
 	List<CartItem> findListOfCartFromShoppingCart();
 	
-	CartItem updateCartItem(CartItem cartItem);
+//	CartItem updateCartItem(CartItem cartItem);
+	CartItem updateCartItem(CartItem cartItem, ShoppingCart shoppingCart);
 	
 	CartItem addItemSkuToCartItem(ItemSku itemSku, CnbUser user, int qty);
 	
@@ -26,4 +27,5 @@ public interface CartItemService {
 	ShoppingCart getShoppingCart();
 
 	void setShoppingCart(ShoppingCart shoppingCart);
+
 }

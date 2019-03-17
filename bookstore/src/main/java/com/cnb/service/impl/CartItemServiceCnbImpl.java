@@ -41,7 +41,7 @@ public class CartItemServiceCnbImpl implements CartItemService {
 	}
 
 	@Override
-	public CartItem updateCartItem(CartItem cartItem) {
+	public CartItem updateCartItem(CartItem cartItem, ShoppingCart shoppingCart) {
 		if(listOfCartItems.contains(cartItem)) {
 			listOfCartItems.remove(cartItem);
 		}
@@ -52,6 +52,7 @@ public class CartItemServiceCnbImpl implements CartItemService {
 		//cartItemRepository.save(cartItem);
 		listOfCartItems.add(cartItem);
 		shoppingCart.setCartItemList(listOfCartItems);
+		this.shoppingCart = shoppingCart;
 		
 		return cartItem;
 	}
