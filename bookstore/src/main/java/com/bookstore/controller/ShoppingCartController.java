@@ -43,6 +43,9 @@ public class ShoppingCartController {
 		
 		List<CartItem> cartItemList = cartItemService.findListOfCartFromShoppingCart();
 		
+		if(cartItemList == null) {
+			return "index";
+		}
 		//TODO remove the print block
 				System.out.println("[DEBUG] : In ShoppingCartController");
 				for(CartItem cartI : cartItemList) {
@@ -95,7 +98,7 @@ public class ShoppingCartController {
 			return "forward:/itemSkuDetail?id=" + itemSku.getInventory();
 		}
 		
-		CartItem cartItem = cartItemService.addItemSkuToCartItem(itemSku, user, Integer.parseInt(qty));
+		cartItemService.addItemSkuToCartItem(itemSku, user, Integer.parseInt(qty));
 		model.addAttribute("addItemSkuSuccess", true);
 		
 		return "forward:/itemSkuDetail?id=" + itemSku.getMasterSKU();
