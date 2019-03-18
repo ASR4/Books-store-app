@@ -68,8 +68,7 @@
 								<a th:href="@{itemSkuDetail(id=${cartItem.itemSku.masterSKU})}"> <img
 									style="width:70px;"
 									class="img-responsive shelf-book center-block"
-									th:src="#{adminPath}+@{/image/book/}+
-								${cartItem.itemSku.masterSKU}+'.png'" />
+									th:src="${cartItem.itemSku.imageUrl}" />
 								</a>
 							</div>
 							<div class="col-xs-6">

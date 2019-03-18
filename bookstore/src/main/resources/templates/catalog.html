@@ -12,11 +12,7 @@
 					<span>Catalog</span>
 					<hr/>				
 				</h2>
-		
 			</div>
-			<!--<div class="col-xs-4">
-				<img src="/image/logo.png" class="img-responsive" />
-			</div>-->
 		</div>
 		
 
@@ -46,7 +42,9 @@
 								<div th:if="${itemSku != null}">
 									<div class="row" style="margin-bottom: 50px;">
 										<div class="col-xs-3">
-											<a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}"></a>
+											<a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}"><img 
+												class="img-responsive shelf-book"
+												th:src="${itemSku.imageUrl}" /></a>
 										</div>
 										<div class="col-xs-9" >
 											<a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}">
@@ -69,7 +67,7 @@
 											
 											<!-- price -->	
 											<a th:href="@{/itemSkuDetail?id=}+${itemSku.masterSKU}"><span
-												style="font-size: large; color: #db3208;">Price : </span><span
+												style="font-size: large; color: #db3208;">Price : </span>$<span
 													th:text="${itemSku.price_CAD}"></span></a><br/>
 
 											<!--span style="text-decoration: line-through;"><span
